@@ -1,60 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 import ReactJoyride, { EVENTS } from "react-joyride";
 import "./styles.css";
+import {steps} from "../ServicesTutorial/Services"
 
 class Basic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       run: false,
-      steps: [
-        {
-          content: (
-            <React.Fragment>
-              <h2>Let's start the tour!</h2>
-              <button
-                style={{ backgroundColor: "#000", color: "#fff" }}
-                onClick={this.handleClickAddSteps}
-              >
-                Add a new step
-              </button>
-            </React.Fragment>
-          ),
-          placement: "center",
-          locale: { skip: "S-K-I-P" },
-          target: "body"
-        },
-        {
-          content: "These are our super awesome projects!",
-          placement: "bottom-start",
-          styles: {
-            options: {
-              width: 900
-            }
-          },
-          target: ".demo__projects h2",
-          title: "Our projects"
-        },
-        {
-          title: "Our Mission",
-          content: (
-            <div>
-              You can render anything here.
-              <br />
-              <h3>Like a H3 title</h3>
-            </div>
-          ),
-          target: ".demo__how-it-works h2",
-          placement: "top"
-        },
-        {
-          title: "Our Fail Test",
-          content: "This step should fail",
-          target: ".demo__rumba",
-          placement: "top"
-        }
-      ]
+      steps: steps
     };
   }
 
@@ -111,22 +66,40 @@ class Basic extends Component {
       run: true
     });
   };
+  
+  /*
+  componentDidMount() {
+    this.setState({
+      run: true
+    });
+  }*/
 
   handleJoyrideCallback = data => {
-    const { joyride } = this.props;
+    const { joyride } = this.props
     const { type } = data;
-
     if (type === EVENTS.TOUR_END && this.state.run) {
       // Need to set our running state to false, so we can restart if we click start again.
+      // se ejecuta cuando doy click en skip
+      // console.log("aqui");
+      // deja de correr el tutorial
       this.setState({ run: false });
     }
 
     if (typeof joyride.callback === "function") {
+      // console.log(data);
+     // cuando no hay mas tutoriales que mostrar
       joyride.callback(data);
     } else {
-      console.group(type);
-      console.log(data); //eslint-disable-line no-console
-      console.groupEnd();
+      // when i click next
+
+      // puedo validar el paso aqui y hacer evento segun paso pertinente
+      if(data.index == 1){
+        console.log("step 2")
+      }else{
+        console.group(type);
+        console.log(data); //eslint-disable-line no-console
+        console.groupEnd();
+      }
     }
   };
 
@@ -153,7 +126,7 @@ class Basic extends Component {
         <div className="demo__section demo__hero">
           <div>
             <h1>Onboarding Tutorial</h1>
-            <button onClick={this.handleClickStart}>Let's Go!</button>
+            <button onClick={this.handleClickStart}>Bienvenido!</button>
           </div>
         </div>
         <div className="demo__section demo__projects">

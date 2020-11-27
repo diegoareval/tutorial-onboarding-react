@@ -11,8 +11,6 @@ const Footer = () => {
         <Link to="/">Basic</Link>
         <Link to="/controlled">Controlled</Link>
         <Link to="/custom">Custom</Link>
-        <Link to="/carousel">Carousel</Link>
-        <Link to="/modal">Modal</Link>
         <Link to="/scroll">Scroll</Link>
       </div>
     </footer>
